@@ -2,10 +2,9 @@ package ru.xvromanova.springapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.xvromanova.springapp.dao.AccountDAO;
+import ru.xvromanova.springapp.models.Account;
 
 @Controller
 @RequestMapping("/accounts")
@@ -27,5 +26,18 @@ public class AccountsController {
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("account",accountDAO.show(id));
         return "accounts/show";
+    }
+
+    @GetMapping("/new")
+    public String newAccount(@ModelAttribute("account") Account account) {
+
+        return "accounts/new";
+    }
+
+    @PostMapping()
+    public String create(@ModelAttribute("account") Account account) {
+        accountDAO.save(account);
+
+        return "redirect:/accounts";
     }
 }

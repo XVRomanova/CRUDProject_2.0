@@ -8,15 +8,16 @@ import java.util.List;
 
 @Component
 public class AccountDAO {
+    private static int ACCOUNTS_COUNT;
     private List<Account> accounts;
 
     {
         accounts = new ArrayList<>();
 
-        accounts.add(new Account(1, "Ann"));
-        accounts.add(new Account(2, "Kate"));
-        accounts.add(new Account(3,"Tom"));
-        accounts.add(new Account(4, "Mike"));
+        accounts.add(new Account(++ACCOUNTS_COUNT, "Ann"));
+        accounts.add(new Account(++ACCOUNTS_COUNT, "Kate"));
+        accounts.add(new Account(++ACCOUNTS_COUNT,"Tom"));
+        accounts.add(new Account(++ACCOUNTS_COUNT, "Mike"));
     }
 
     public List<Account> index(){
@@ -25,6 +26,11 @@ public class AccountDAO {
 
     public  Account show(int id) {
         return accounts.stream().filter(account -> account.getId() == id).findAny().orElse(null);
+    }
+
+    public void save(Account account) {
+        account.setId(++ACCOUNTS_COUNT);
+        accounts.add(account);
     }
 
 }
