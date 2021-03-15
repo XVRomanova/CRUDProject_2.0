@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All accounts</title>
+</head>
+<body>
+
+<div th:each="account : ${accounts}">
+    <a th:href="@{/accounts/{id}(id=${account.getId()})}" th:text="${account.getName()}">user</a>
+</div>
+
+</body>
+</html>
