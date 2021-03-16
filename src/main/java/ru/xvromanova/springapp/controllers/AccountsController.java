@@ -19,12 +19,14 @@ public class AccountsController {
     @GetMapping()
     public String index(Model model){
         model.addAttribute("accounts", accountDAO.index());
+
         return "accounts/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("account",accountDAO.show(id));
+
         return "accounts/show";
     }
 
@@ -40,4 +42,26 @@ public class AccountsController {
 
         return "redirect:/accounts";
     }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("account", accountDAO.show(id));
+
+        return "accounts/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("account") Account account, @PathVariable("id") int id) {
+        accountDAO.update(id, account);
+
+        return "redirect:/accounts";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        accountDAO.delete(id);
+
+        return "redirect:/accounts";
+    }
+
 }

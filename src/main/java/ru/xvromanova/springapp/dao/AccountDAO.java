@@ -33,4 +33,13 @@ public class AccountDAO {
         accounts.add(account);
     }
 
+    public void update(int id, Account updateAccount) {
+        Account accountToBeUpdated = show(id);
+
+        accountToBeUpdated.setName(updateAccount.getName());
+    }
+
+    public void delete(int id) {
+        accounts.removeIf(a -> a.getId() == id);
+    }
 }
