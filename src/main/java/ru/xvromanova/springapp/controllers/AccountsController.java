@@ -2,9 +2,12 @@ package ru.xvromanova.springapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.xvromanova.springapp.dao.AccountDAO;
 import ru.xvromanova.springapp.models.Account;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/accounts")
@@ -37,7 +40,11 @@ public class AccountsController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("account") Account account) {
+    public String create(@ModelAttribute("account") @Valid Account account, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "accounts/new";
+        }
+
         accountDAO.save(account);
 
         return "redirect:/accounts";
@@ -51,7 +58,10 @@ public class AccountsController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("account") Account account, @PathVariable("id") int id) {
+    public String update(@ModelAttribute("account") @Valid Account account, BindingResult bindingResult, @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()){
+            return "accounts/edit";
+        }
         accountDAO.update(id, account);
 
         return "redirect:/accounts";

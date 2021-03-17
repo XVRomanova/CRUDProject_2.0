@@ -14,10 +14,10 @@ public class AccountDAO {
     {
         accounts = new ArrayList<>();
 
-        accounts.add(new Account(++ACCOUNTS_COUNT, "Ann"));
-        accounts.add(new Account(++ACCOUNTS_COUNT, "Kate"));
-        accounts.add(new Account(++ACCOUNTS_COUNT,"Tom"));
-        accounts.add(new Account(++ACCOUNTS_COUNT, "Mike"));
+        accounts.add(new Account(++ACCOUNTS_COUNT, "Ann",21,"ann@gmail.com"));
+        accounts.add(new Account(++ACCOUNTS_COUNT, "Kate",30,"kate@yandex.ru"));
+        accounts.add(new Account(++ACCOUNTS_COUNT,"Tom",54,"tom@gmail.com"));
+        accounts.add(new Account(++ACCOUNTS_COUNT, "Mike",14,"mike12@mail.ru"));
     }
 
     public List<Account> index(){
@@ -37,6 +37,8 @@ public class AccountDAO {
         Account accountToBeUpdated = show(id);
 
         accountToBeUpdated.setName(updateAccount.getName());
+        accountToBeUpdated.setAge(updateAccount.getAge());
+        accountToBeUpdated.setEmail(updateAccount.getEmail());
     }
 
     public void delete(int id) {
